@@ -21,9 +21,16 @@ $RECYCLE.BIN/
 # OSX
 # =========================
 
+.gitignore~
 .DS_Store
 .AppleDouble
 .LSOverride
+build/
+#build.gradle#
+.gradle
+p2pMetaServer.iml
+p2pMetaServer.ipr
+p2pMetaServer.iws
 
 # Icon must ends with two \r.
 Icon

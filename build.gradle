@@ -1,8 +1,9 @@
 apply plugin: 'war'
 apply plugin: 'appengine'
+apply plugin: 'idea'
 
-def appId     = "hellogradle"					
-def appEmail  = "romin.irani@mindstormsoftware.com"		
+def appId     = "p2p-meta-server"					
+def appEmail  = "zhaoanbang.work@gmai.com"		
 
 def appengineVersion = "1.9.6"
 
@@ -33,13 +34,7 @@ appengine {
     appcfg {
     
         email = "${appEmail}"
-		noCookies = true
+		noCookies = false
 		oauth2 = true
-		
-
-        app {
-            id = "${appId}"
-            version = '1'
-        }
     }
 }
