@@ -21,9 +21,11 @@ repositories {
 }
 
 dependencies {
+    compile "com.google.code.gson:gson:2.3"
 	appengineSdk "com.google.appengine:appengine-java-sdk:${appengineVersion}"
 	compile "javax.servlet:servlet-api:2.5"
 	compile "com.google.appengine:appengine-api-1.0-sdk:${appengineVersion}"
+
 }
 
 appengine {
