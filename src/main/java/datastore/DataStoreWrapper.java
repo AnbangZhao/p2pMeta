@@ -30,4 +30,10 @@ public class DataStoreWrapper implements DataStoreInterface{
         greeting.setProperty(propertyName, value);
         datastoreService.put(greeting);
     }
+
+    @Override
+    public void delete(String kind, String key) {
+        Key deleteKey = KeyFactory.createKey(kind, key);
+        datastoreService.delete(deleteKey);
+    }
 }

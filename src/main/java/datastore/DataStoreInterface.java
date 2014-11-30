@@ -8,4 +8,5 @@ import java.util.Objects;
 public interface DataStoreInterface {
     public Object get(String kind, String key);
     public void put(String kind, String key, Object value);
+    public void delete(String kind, String key);
 }

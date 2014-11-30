@@ -24,6 +24,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
         <servlet-name>CreateTree</servlet-name>
 		<servlet-class>server.CreateTreeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ExitTree</servlet-name>
+		<servlet-class>server.ExitTreeServlet</servlet-class>
+    </servlet>
 
 
 
@@ -46,6 +50,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     <servlet-mapping>
         <servlet-name>CreateTree</servlet-name>
 		<url-pattern>/createtree</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExitTree</servlet-name>
+		<url-pattern>/exittree</url-pattern>
     </servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

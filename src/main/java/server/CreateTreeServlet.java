@@ -1,8 +1,7 @@
 package server;
 
 import datastore.DataStoreJsonWrapper;
-import metadata.CloudletInfo;
-import metadata.TreeInfo;
+import metadata.*;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +12,8 @@ import java.io.IOException;
  * Created by anbang on 11/9/14.
  *
  * Create an overlay tree for the client.
- * If the tree already exits, return 404
+ * If the tree already exits, delete it and create
+ * a new one
  *
  * Parameter:
  * tree_name : name
@@ -24,36 +24,34 @@ public class CreateTreeServlet extends HttpServlet{
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
-        String clientName = req.getRemoteAddr();
+        String clientName = req.getParameter(Constants.CLOUDLET_NAME);
         String treeName = req.getParameter(Constants.TREENAME);
-        double consumeCapacity = Double.valueOf(req.getParameter(Constants.CONSUME_CAPACITY));
+        double consumeCapacity = Double.valueOf(req.getParameter(Constants.STREAM_CAPACITY));
         if(clientName == null || treeName == null) {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
 
-        DataStoreJsonWrapper<TreeInfo> datastore = new DataStoreJsonWrapper<>(TreeInfo.class);
-        DataStoreJsonWrapper<CloudletInfo> cloudletDataStore = new DataStoreJsonWrapper<>(CloudletInfo.class);
+        DataStoreJsonWrapper<OverlayTree> datastore = new DataStoreJsonWrapper<>(OverlayTree.class);
+        DataStoreJsonWrapper<Cloudlet> cloudletDataStore = new DataStoreJsonWrapper<>(Cloudlet.class);
 
-        CloudletInfo cloudletInfo = cloudletDataStore.get(Constants.CLOUDLETINFO, clientName);
-        if(cloudletInfo == null) {
+        Cloudlet cloudlet = cloudletDataStore.get(Constants.CLOUDLET, clientName);
+        if(cloudlet == null) {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
+        TreeNode root = new TreeNode(clientName, initLatency);
 
-        // tree already exists, return error
-        TreeInfo tree = datastore.get(Constants.TREEINFO, treeName);
+        // tree already exists, destroy it
+        OverlayTree tree = datastore.get(Constants.TREEINFO, treeName);
         if(tree != null) {
-            resp.sendError(HttpServletResponse.SC_CONFLICT);
-            return;
+            tree.destroyTree(treeName);
         }
 
-        tree = new TreeInfo(consumeCapacity);
-        double leftCap = cloudletInfo.getCapacity();
-        tree.addCloudlet(clientName, initLatency, leftCap);
-        cloudletInfo.addTree(treeName, consumeCapacity, "root");
+        tree = new OverlayTree(root, consumeCapacity);
+        cloudlet.addIntoTree(treeName);
         datastore.put(Constants.TREEINFO, treeName, tree);
-        cloudletDataStore.put(Constants.CLOUDLETINFO, clientName, cloudletInfo);
+        cloudletDataStore.put(Constants.CLOUDLET, clientName, cloudlet);
         resp.setStatus(HttpServletResponse.SC_OK);
     }
 }

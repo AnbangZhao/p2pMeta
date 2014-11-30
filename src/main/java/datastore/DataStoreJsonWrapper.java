@@ -30,4 +30,8 @@ public class DataStoreJsonWrapper<T> {
         String jsonStr = gson.toJson(obj);
         datastore.put(kind, key, jsonStr);
     }
+
+    public void delete(String kind, String key) {
+        datastore.delete(kind, key);
+    }
 }
