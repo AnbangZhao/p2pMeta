@@ -23,5 +23,6 @@ public class HeartbeatServlet extends HttpServlet {
         if(currNode != null) {
             currNode.updateTimestamp();
         }
+        treeStore.put(Constants.TREEINFO, treename, tree);
     }
 }
