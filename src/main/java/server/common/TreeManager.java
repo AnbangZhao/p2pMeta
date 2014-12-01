@@ -26,6 +26,10 @@ public class TreeManager {
             cloudlet.incBand(tree.getConsuption() * curr.getDescedents().size());
             cloudlet.deleteTree(treeName);
             cloudletStore.put(Constants.CLOUDLET, curr.getCloudletName(), cloudlet);
+
+            for(TreeNode node : curr.getDescedents()) {
+                stack.push(node);
+            }
         }
         treeStore.delete(Constants.TREEINFO, treeName);
     }

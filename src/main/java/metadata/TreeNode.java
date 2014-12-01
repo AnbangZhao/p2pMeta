@@ -76,6 +76,10 @@ public class TreeNode {
         latency = newLatency;
     }
 
+    public void updateTimestamp() {
+        timestamp = currTimestamp();
+    }
+
     public boolean isLeaf() {
         return descedents.size() == 0;
     }
