@@ -61,6 +61,7 @@ public class TreeManager {
         DataStoreJsonWrapper<Cloudlet> cloudletStore = new DataStoreJsonWrapper<>(Cloudlet.class);
         DataStoreJsonWrapper<OverlayTree> treeStore = new DataStoreJsonWrapper<>(OverlayTree.class);
         TreeNode prevNode = node.getPrevNode(tree);
+        String cloudletName = node.getCloudletName();
         if(prevNode != null) {
             // modify prev cloudlet and tree structure
             // just change the current node to dummy node
@@ -74,7 +75,7 @@ public class TreeManager {
         }
 
         // modify leaf node
-        Cloudlet currCloudlet = cloudletStore.get(Constants.CLOUDLET, node.getCloudletName());
+        Cloudlet currCloudlet = cloudletStore.get(Constants.CLOUDLET, cloudletName);
         currCloudlet.deleteTree(treeName);
 
         // persist changes

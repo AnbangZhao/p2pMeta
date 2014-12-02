@@ -32,6 +32,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
         <servlet-name>Heartbeat</servlet-name>
 		<servlet-class>server.HeartbeatServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RootStatus</servlet-name>
+		<servlet-class>server.RootStatusServlet</servlet-class>
+    </servlet>
 
 
 
@@ -62,6 +66,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     <servlet-mapping>
         <servlet-name>Heartbeat</servlet-name>
 		<url-pattern>/heartbeat</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RootStatus</servlet-name>
+		<url-pattern>/rootstatus</url-pattern>
     </servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

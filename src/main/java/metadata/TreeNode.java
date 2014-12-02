@@ -103,7 +103,7 @@ public class TreeNode {
     }
 
     public boolean isHealthy() {
-        return !isDummy();
+        return !isDummy() && currTimestamp() - timestamp < Constants.MAX_DURATION;
     }
 
     private long currTimestamp() {

@@ -14,4 +14,5 @@ public class Constants {
     public static String STREAM_CAPACITY = "consume";
 
     public static int CHECK_DURATION = 10;
+    public static int MAX_DURATION = 40;
 }

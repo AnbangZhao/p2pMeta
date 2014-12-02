@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
   <application>p2p-meta-server</application>
+  <manual-scaling>
+    <instances>1</instances>
+  </manual-scaling>
   <version>1</version>
 
   <!--

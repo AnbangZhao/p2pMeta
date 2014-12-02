@@ -12,20 +12,22 @@ import java.io.IOException;
 /**
  * Created by anbang on 12/1/14.
  */
-public class HeartbeatServlet extends HttpServlet {
+public class RootStatusServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String treename = req.getParameter(Constants.TREENAME);
-        String cloudletname = req.getParameter(Constants.CLOUDLET_NAME);
-
         DataStoreJsonWrapper<OverlayTree> treeStore = new DataStoreJsonWrapper<>(OverlayTree.class);
         OverlayTree tree = treeStore.get(Constants.TREEINFO, treename);
         if(tree == null) {
+            resp.getWriter().write("down");
             return;
         }
-        TreeNode currNode = tree.findNode(cloudletname);
-        if(currNode != null) {
-            currNode.updateTimestamp();
+        TreeNode root = tree.getRoot();
+        if(root.isHealthy()){
+            resp.getWriter().write("up");
         }
-        treeStore.put(Constants.TREEINFO, treename, tree);
+        else{
+            resp.getWriter().write("down");
+        }
+        return;
     }
 }
